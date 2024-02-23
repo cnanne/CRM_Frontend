@@ -1,0 +1,5 @@
+@import "@angular/material/prebuilt-themes/purple-green.css";
+
+.login-form-container {
+    margin-left: 12px;
+  }

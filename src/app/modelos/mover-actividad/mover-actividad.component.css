@@ -1,0 +1,9 @@
+.box{
+    width: 50vw; /* Set width of the box */
+}
+
+/* Style button container */
+.button-container {
+    display: flex;
+    justify-content: space-between;
+  }

@@ -1,0 +1,86 @@
+.SideBarShown{
+    display:block;
+    position:fixed;
+    width: 370px;
+    height: 100%;
+    background-color: rgb(35,31,32);
+    
+}
+
+.sideBarItems{
+    margin-top: 15vh;
+}
+
+.iconStyle{
+    width: 35px;
+    height: 35px;
+    margin-right: 5%;
+    padding-top: 10px;
+}
+
+.logoContainer{
+    margin-top: 10vh;
+    
+    
+}
+
+.profileImage{
+    border-radius: 50%;
+    width: 95px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+
+}
+
+.profileNameContainer{
+    margin-top: 3vh;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+    size: 22pt;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.profileContainer{
+    margin-top: 10vh
+}
+
+.logo{
+    width: 133px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.Bar-Item{
+    margin-left: 15%;
+    float:left;
+    width:auto;
+    border:none;
+    display:block;
+    outline:0;
+    font-size: 22pt;
+    color: white;
+}
+.Bar-Button:hover{
+    color:rgb(237,28,36)}
+.Bar-Button{
+    border:none;
+    display:inline-block;
+    padding:8px 16px;
+    vertical-align:middle;
+    overflow:hidden;
+    text-decoration:none;
+    color:inherit;
+    background-color:inherit;
+    text-align:center;
+    cursor:pointer;
+    white-space:nowrap;
+    color: white;
+}
+
+

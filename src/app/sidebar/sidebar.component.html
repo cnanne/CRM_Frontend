@@ -1,0 +1,20 @@
+<div class="SideBarShown">
+    <div class="logoContainer">
+        <img src = "assets/Icons/Logo.png" class="logo">
+    </div>
+    <div class="profileContainer">
+        <img src = "assets/profileImage/default.png" class="profileImage">
+        <div class="profileNameContainer">
+            Christian Nanne
+        </div>
+    </div>
+    <div *ngFor="let item of sidebarItems" class="sideBarItems">
+        <a (mouseenter)="onMouseEnter(item)"  (mouseleave)="onMouseExit(item)" class="Bar-Item Bar-Button" href="javascript:void(0);" (click)="sidebarItemClick(item.type)">
+            <img 
+            [src]="item.iconPath" 
+            [ngClass]="{'hovered': isHovered}"
+            class="iconStyle">
+            {{ item.name }}
+        </a>
+    </div>
+</div>

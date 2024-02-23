@@ -1,0 +1,30 @@
+<div class="box">
+    
+    
+    
+    <form [formGroup]="moverActividadForm"  (submit)="actividadCompletar">
+        Fecha de Actividad: {{actividad.fecha_actividad}}
+        <mat-form-field appearance="fill">
+            <mat-label>Fecha nueva de actividad</mat-label>
+            <input matInput formControlName="nuevaFecha" placeholder="Nueva Fecha">
+            <mat-error *ngIf="moverActividadForm.controls['nuevaFecha'].invalid">Se necesita nueva fecha de Actvidad</mat-error>
+        </mat-form-field>
+        <br>
+        Cliente: {{actividad.oportunidad?.empresa?.nombre_de_empresa}}   Oportunidad: {{actividad.oportunidad?.nombre_de_oportunidad}}<br>
+        <br>
+        Actividad:<br>
+        {{actividad.curr_actividad}}<br><br>
+        <mat-form-field appearance="fill">
+            <mat-label>Razon de moverla</mat-label>
+            <input matInput formControlName="notas" placeholder="Razón para mover la actividad">
+            <mat-error *ngIf="moverActividadForm.controls['razon'].invalid">Se necesitan notas de la actividad</mat-error>
+        </mat-form-field>
+        <br>
+        <div class="button-container">
+            <button mat-raised-button color="primary" type="submit">Mover Actividad</button>
+        </div>
+        
+    </form>
+    <br>
+    <button mat-raised-button color="primary" (click)="closeView()">Mover Completar</button>
+</div>

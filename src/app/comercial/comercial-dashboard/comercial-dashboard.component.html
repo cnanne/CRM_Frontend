@@ -1,0 +1,40 @@
+<h1>Dashboard</h1>
+<div>
+    <button mat-raised-button color="primary">Crear Actividad</button>
+    <br>
+    <br>
+</div>
+<div *ngIf="actividadesVencidas.length>0">
+    ------------------------------------------------------------------------
+    <h2>Actividades Vencidas</h2>
+    <div *ngFor="let actividad of actividadesVencidas">
+        Fecha Actividad: {{actividad.fecha_actividad}}<br>
+        Actividad: {{actividad.curr_actividad}}<br>
+        <button mat-raised-button color="primary" (click)="completarActividad(actividad)">Completar</button>
+        <button mat-raised-button color="primary" (click)="moverActividad(actividad)">Mover</button> 
+        <button mat-raised-button color="primary" (click)="verOpp(actividad)">Ver Oportunidad</button><br><br>
+    </div>
+</div>
+<div *ngIf="actividadesHoy.length > 0">
+    ------------------------------------------------------------------------
+    <h2>Actividades para Hoy</h2>
+    <div *ngFor="let actividad of actividadesHoy">
+        Fecha Actividad: {{actividad.fecha_actividad}}<br>
+        Actividad: {{actividad.curr_actividad}}<br>
+        <button mat-raised-button color="primary" (click)="completarActividad(actividad)">Completar</button>
+        <button mat-raised-button color="primary" (click)="moverActividad(actividad)">Mover</button> 
+        <button mat-raised-button color="primary" (click)="verOpp(actividad)">Ver Oportunidad</button><br><br>
+    </div>
+</div>
+<div *ngIf="completarActividadRendering">
+    <app-completar-actividad (closeCompletarEvent)="cerrarCompletarActividad($event)" [actividadId]="actividadId"></app-completar-actividad>
+</div>
+<div *ngIf="moverActividadRendering">
+    <app-mover-actividad (closeMoverEvent)="cerrarMoverActividad($event)" [actividadId]="actividadId"></app-mover-actividad>
+</div>
+
+<div *ngIf="verOppDetails">
+    <app-ver-opp (closeOppEvent)="cerrarVerOpp($event)" [oppId]="oppId"></app-ver-opp>
+</div>
+
+
