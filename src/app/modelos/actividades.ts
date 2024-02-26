@@ -1,5 +1,5 @@
 import { NumberValueAccessor } from "@angular/forms";
-import { OportunidadYEmpresa } from "./oportunidades";
+import { OportunidadEmpresaYEstado, OportunidadYEmpresa } from "./oportunidades";
 import { Prioridad } from "./prioridades";
 
 export interface ActividadesListItem {
@@ -13,7 +13,7 @@ export interface ActividadesListItem {
 
 export interface Actividad{
     id?: number
-    oportunidad?: OportunidadYEmpresa
+    oportunidad?: OportunidadEmpresaYEstado
     fecha_actividad?: Date;
     curr_actividad?: string;
     prioridad?: Prioridad;
@@ -32,10 +32,11 @@ export interface Actividad{
 export interface CompletarActividad{
     id?: number
     notas?: string
-    fecha_completada: string
-    nueva_actividad_curr_actividad: string
-    nueva_actividad_fecha_nueva_actividad: string
-    nueva_actividad_prioridad_nueva_actividad: string
+    fecha_completada?: string
+    nueva_actividad_curr_actividad?: string
+    nueva_actividad_fecha_nueva_actividad?: string
+    nueva_actividad_prioridad_nueva_actividad?: string
+    agregar_nueva_actividad: boolean
 }
 
 

@@ -1,4 +1,4 @@
-<div class="box" *ngIf="actividad$ | async as actividad">
+<div class="box" *ngIf="actividadFetched">
     <div class="contentBox">
     <b>Cliente:</b> {{ actividad.oportunidad?.empresa?.nombre_de_empresa }}  <span style="text-align: left"> <b>Oportunidad: </b>{{ actividad.oportunidad?.nombre_de_oportunidad }}</span><br>
     Fecha de Actividad: {{ actividad.fecha_actividad }}
@@ -25,32 +25,38 @@
                 <mat-error *ngIf="completarActividadForm.controls['notas'].invalid">Se necesitan notas de la actividad</mat-error>
             </mat-form-field>
             <br>
-            <mat-form-field appearance="fill">
-                <mat-label>Fecha nueva actividad</mat-label>
-                <input matInput [matDatepicker]="picker2" placeholder="Nueva Fecha" formControlName="nuevaFecha">
-                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                <mat-datepicker #picker2></mat-datepicker>
-                <mat-error *ngIf="completarActividadForm.controls['nuevaFecha'].invalid">Se necesita nueva fecha de Actvidad</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Prioridad</mat-label>
-                <mat-select *ngIf="prioridadesFetched" formControlName="prioridad" placeholder="Prioridad de Actividad">
-                
-                    <mat-option *ngFor="let prioridad of prioridades" [value]="prioridad.id">
-                        {{prioridad.nombre}}
-                    </mat-option>
-                
-                </mat-select>
-                <mat-error *ngIf="completarActividadForm.controls['prioridad'].invalid">Se necesita prioridad de Actvidad</mat-error>
-            </mat-form-field>
-            <br>
-            <mat-form-field appearance="fill">
-                <mat-label>Actividad Nueva</mat-label>
-                <input matInput formControlName="nuevaActividad" placeholder="Nueva Actividad">
-                <mat-error *ngIf="completarActividadForm.controls['nuevaActividad'].invalid">Se necesita nueva Actividad</mat-error>
-            </mat-form-field>
-            <br>
-           
+            <div *ngIf="oportunidadCerrada">
+                Esta actividad actualmente ya se encuentra cerrada. No se requiere agregar nueva actividad.<br>
+                <mat-slide-toggle formControlName="agregarNuevaActividad" (change)="agregarNuevaOportunidadToggle($event)">Agregar Nueva Actividad</mat-slide-toggle>
+                <br>
+            </div>
+            <div *ngIf="agregarNuevaOpp">
+                <mat-form-field appearance="fill" >
+                    <mat-label>Fecha nueva actividad</mat-label>
+                    <input matInput [matDatepicker]="picker2" placeholder="Nueva Fecha" formControlName="nuevaFecha">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                    <mat-error *ngIf="completarActividadForm.controls['nuevaFecha'].invalid">Se necesita nueva fecha de Actvidad</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Prioridad</mat-label>
+                    <mat-select *ngIf="prioridadesFetched" formControlName="prioridad" placeholder="Prioridad de Actividad">
+                    
+                        <mat-option *ngFor="let prioridad of prioridades" [value]="prioridad.id">
+                            {{prioridad.nombre}}
+                        </mat-option>
+                    
+                    </mat-select>
+                    <mat-error *ngIf="completarActividadForm.controls['prioridad'].invalid">Se necesita prioridad de Actvidad</mat-error>
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="fill">
+                    <mat-label>Actividad Nueva</mat-label>
+                    <input matInput formControlName="nuevaActividad" placeholder="Nueva Actividad">
+                    <mat-error *ngIf="completarActividadForm.controls['nuevaActividad'].invalid">Se necesita nueva Actividad</mat-error>
+                </mat-form-field>
+                <br>
+            </div>
             
         </form>
     <button mat-raised-button color="primary" (click)="actividadCompletar()">Completar Actividad</button> 

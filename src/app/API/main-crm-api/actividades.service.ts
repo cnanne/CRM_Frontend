@@ -28,21 +28,14 @@ export class ActividadesService extends BaseClassService {
     );
   }
 
-  completarActividad(jsonData: String, id: string): void{
+  completarActividad(jsonData: String, id: string): Observable<void>{
     let Comppath = this.completePath('actividades/completar/'+id)
-    this.http.put<void>(Comppath, jsonData).pipe(
+    return this.http.put<void>(Comppath, jsonData).pipe(
       catchError((error: HttpErrorResponse) => {
         // Handle error here
         console.error('Error completing activity:', error);
         return throwError(()=>error)
-      })).subscribe(
-        () => {
-          // Handle success if needed
-        },
-        (error: any) => {
-          // Handle error if needed
-        }
-      );  
+      }))
   }
 
   getActividadesHoy(): Observable<ActividadesListItem[]>{

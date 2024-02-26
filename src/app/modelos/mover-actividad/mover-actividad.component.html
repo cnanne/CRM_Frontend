@@ -6,7 +6,9 @@
         Fecha de Actividad: {{actividad.fecha_actividad}}
         <mat-form-field appearance="fill">
             <mat-label>Fecha nueva de actividad</mat-label>
-            <input matInput formControlName="nuevaFecha" placeholder="Nueva Fecha">
+            <input matInput [matDatepicker]="picker" formControlName="nuevaFecha" placeholder="Nueva Fecha">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
             <mat-error *ngIf="moverActividadForm.controls['nuevaFecha'].invalid">Se necesita nueva fecha de Actvidad</mat-error>
         </mat-form-field>
         <br>

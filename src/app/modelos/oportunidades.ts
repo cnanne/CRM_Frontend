@@ -12,6 +12,13 @@ export interface OportunidadYEmpresa{
 
 }
 
+export interface OportunidadEmpresaYEstado{
+    id: number
+    nombre_de_oportunidad: string
+    empresa: EmpresaNombre
+    estado_de_la_oportunidad: EstadoOportunidad
+}
+
 export interface OportunidadesListItem{
     id: number
     nombre_de_oportunidad: string

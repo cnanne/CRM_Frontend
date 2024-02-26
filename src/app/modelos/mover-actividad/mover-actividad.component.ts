@@ -7,6 +7,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
+
 
 
 @Component({
@@ -17,11 +21,12 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    CommonModule
+    CommonModule,
+    MatDatepickerModule,
   ],
   templateUrl: './mover-actividad.component.html',
   styleUrl: './mover-actividad.component.css',
-  providers: [ActividadesService]
+  providers: [ActividadesService, provideNativeDateAdapter()]
   //Need to create a service to get the prioridades. (ALL OF THEM)
 })
 export class MoverActividadComponent implements OnChanges{

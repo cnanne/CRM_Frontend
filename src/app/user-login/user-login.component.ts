@@ -35,7 +35,7 @@ export class UserLoginComponent  {
         this.authService.logIn(usernameString, passwordString).subscribe({
           next: (data) => {
             console.log(data);
-            this.router.navigate(["/"])
+            this.router.navigate(["/"+data.main_page])
             // Handle successful login
           },
           error: (error) => {

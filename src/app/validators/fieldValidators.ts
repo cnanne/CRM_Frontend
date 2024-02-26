@@ -18,3 +18,36 @@ export function minCharacterLengthValidator(minLength: number): ValidatorFn {
     }
   };
 }
+
+export function futureDateValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const currentDate = new Date();
+    const selectedDate = new Date(control.value);
+    if (selectedDate <= currentDate) {
+      return { 'pastDateOrToday': true };
+    }
+    return null;
+  };
+}
+
+export function todayOrFutureDateValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const currentDate = new Date();
+    const selectedDate = new Date(control.value);
+    if (selectedDate < currentDate) {
+      return { 'pastDate': true };
+    }
+    return null;
+  };
+}
+
+export function todayOrBeforeValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const currentDate = new Date();
+    const selectedDate = new Date(control.value);
+    if (selectedDate > currentDate) {
+      return { 'futureDate': true };
+    }
+    return null;
+  };
+}

@@ -26,6 +26,10 @@ export class ComercialDashboardComponent implements SharedFrameDynamicComponent 
   constructor (private cdr: ChangeDetectorRef, private actividadesService: ActividadesService){}
 
   ngOnInit() {
+    this.getActividades()
+  }
+
+  getActividades() : void{
     forkJoin({
       actividadesVencidas: this.actividadesService.getActividadesVencidas(),
       actividadesHoy: this.actividadesService.getActividadesHoy()
@@ -61,14 +65,17 @@ export class ComercialDashboardComponent implements SharedFrameDynamicComponent 
   }
 
   cerrarCompletarActividad(event: boolean) {
+    this.getActividades()
     this.completarActividadRendering = false;
   }
 
   cerrarMoverActividad(event: boolean) {
+    this.getActividades()
     this.moverActividadRendering = false;
   }
 
   cerrarVerOpp(event: boolean) {
+    this.getActividades()
     this.verOppDetails = false;
   }
 
