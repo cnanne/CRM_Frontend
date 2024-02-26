@@ -29,6 +29,12 @@ export interface Actividad{
     user_owner?: number
 }
 
+export interface MoverActividad{
+    id?: string
+    notas?: string
+    fecha_nueva: string
+}
+
 export interface CompletarActividad{
     id?: number
     notas?: string

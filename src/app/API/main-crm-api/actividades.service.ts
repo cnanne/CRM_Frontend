@@ -38,6 +38,15 @@ export class ActividadesService extends BaseClassService {
       }))
   }
 
+  moverActividad(jsonData: String, id: string): Observable<void>{
+    return this.http.put<void>(this.completePath('actividades/mover/'+id), jsonData).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error moviendo actividad', error)
+        return throwError(()=>error)
+      })
+    )
+  }
+
   getActividadesHoy(): Observable<ActividadesListItem[]>{
     return this.http.get(this.completePath('actividadesHoy')).pipe(
       map((response: any) => response as ActividadesListItem[]) // Type assertion

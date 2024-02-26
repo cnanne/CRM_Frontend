@@ -167,7 +167,6 @@ export class CompletarActividadComponent implements OnChanges, OnInit, OnDestroy
               // Convert to JSON string
 
     const completarActividadJSON: string = JSON.stringify(actividad);
-    console.log(completarActividadJSON)
     this.actividadesService.completarActividad(completarActividadJSON, this.actividadId).subscribe(
       ((value: void) =>
         this.closeView()
