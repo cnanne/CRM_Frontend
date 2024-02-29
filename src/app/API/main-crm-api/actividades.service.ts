@@ -83,5 +83,10 @@ export class ActividadesService extends BaseClassService {
     );
   }
 
+  getActividadesPendientesFromOp(opp: string): Observable<ActividadesListItem[]>{
+    return this.http.get(this.completePath('oportunidades/'+opp+'/actividadesPendientes')).pipe(
+      map((response: any) => response as ActividadesListItem[])
+    )
+  }
 
 }

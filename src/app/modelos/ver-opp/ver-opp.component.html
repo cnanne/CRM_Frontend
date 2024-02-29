@@ -1,5 +1,18 @@
-<div class="box">
-<p>ver-opp works!</p>
-
-<button (click)="closeOportunidad()">Cerrar Oportunidad</button>
+<div class="box" *ngIf="oportunidadFetched">
+    <div style="margin: 10px">
+        <span style="float: right;">Estado de la oportunidad:  <span style="text-decoration: double;" class="{{getEstadoColor()}}">{{getEstadoMacro2()}}</span></span>
+        <h1>{{oportunidad.nombre_de_oportunidad}}</h1>
+        
+        <h2>{{oportunidad.empresa?.nombre_de_empresa}}</h2><span></span>
+        Fecha de Alta {{oportunidad.fecha_de_alta}}<br>
+        Fecha de Inicio: {{oportunidad.fecha_de_inicio}}<br>
+        <span *ngIf="isOpCerrada()">Fecha de Cierre: {{oportunidad.fecha_de_cierre}}</span>
+        <form [formGroup]="oppForm">
+            <mat-form-field appearance="fill">
+                
+            </mat-form-field>
+            
+        </form>
+        <button (click)="closeOportunidad()">Cerrar Oportunidad</button>
+    </div>
 </div>
