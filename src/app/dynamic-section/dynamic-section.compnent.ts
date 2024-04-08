@@ -37,7 +37,7 @@ export abstract class DynamicSection implements AfterViewInit{
   }
 
   changeView(view: Type<SharedFrameDynamicComponent>) {
-    console.log("Change the VIEW");
+    
     this.loadComponent(view);
   }
 

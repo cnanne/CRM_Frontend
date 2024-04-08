@@ -19,7 +19,6 @@ export class SidebarComponent {
     return this.sidebarItems;
   }
   sidebarItemClick(event: Type<SharedFrameDynamicComponent>) {
-    console.log(event);
     this.itemClick.emit(event); // Emit the full event object for parent access.
   }
 
@@ -37,12 +36,11 @@ export class SidebarComponent {
   }
 
   onMouseExit(item: any){
-    console
+    
     this.isHovered = false
-    console.log(item.iconPath)
+    
     item.iconPath = 'assets/Icons/' + item.icon + '.png'
-    console.log (item.iconPath)
-    console.log (item.icon)
+    
 
   }
 
