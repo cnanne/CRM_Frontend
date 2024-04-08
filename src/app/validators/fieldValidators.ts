@@ -21,7 +21,7 @@ export function minCharacterLengthValidator(minLength: number): ValidatorFn {
 
 export function futureDateValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
-    const currentDate = new Date();
+    const currentDate = getOnlyTodaysDate();
     const selectedDate = new Date(control.value);
     if (selectedDate <= currentDate) {
       return { 'pastDateOrToday': true };
@@ -32,18 +32,25 @@ export function futureDateValidator(): ValidatorFn {
 
 export function todayOrFutureDateValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
-    const currentDate = new Date();
+    const currentDate = getOnlyTodaysDate();
     const selectedDate = new Date(control.value);
-    if (selectedDate < currentDate) {
+    if (currentDate > selectedDate ) {
       return { 'pastDate': true };
     }
     return null;
   };
 }
 
+function getOnlyTodaysDate(): Date{
+  let currentDate = new Date()
+  return new Date(currentDate.toISOString().split('T')[0])
+}
+
+
+
 export function todayOrBeforeValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
-    const currentDate = new Date();
+    const currentDate = getOnlyTodaysDate();
     const selectedDate = new Date(control.value);
     if (selectedDate > currentDate) {
       return { 'futureDate': true };

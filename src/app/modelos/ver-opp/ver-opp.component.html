@@ -1,18 +1,57 @@
 <div class="box" *ngIf="oportunidadFetched">
-    <div style="margin: 10px">
-        <span style="float: right;">Estado de la oportunidad:  <span style="text-decoration: double;" class="{{getEstadoColor()}}">{{getEstadoMacro2()}}</span></span>
-        <h1>{{oportunidad.nombre_de_oportunidad}}</h1>
-        
-        <h2>{{oportunidad.empresa?.nombre_de_empresa}}</h2><span></span>
-        Fecha de Alta {{oportunidad.fecha_de_alta}}<br>
-        Fecha de Inicio: {{oportunidad.fecha_de_inicio}}<br>
-        <span *ngIf="isOpCerrada()">Fecha de Cierre: {{oportunidad.fecha_de_cierre}}</span>
-        <form [formGroup]="oppForm">
-            <mat-form-field appearance="fill">
+    
+        <div class="topbar">
+            <div class="oppTitle">
+                Oportunidad:<br>
+                <h2>{{oportunidad.nombre_de_oportunidad}}</h2>
                 
-            </mat-form-field>
+            </div>
+            <div>
+                Cliente:<br>
+                <h2>{{oportunidad.empresa?.nombre_de_empresa}}</h2></div>
+            <div class="oppState">
+                Estado de la oportunidad:  <span style="text-decoration: double;" class="{{getEstadoColor()}} estado">{{getEstadoMacro2()}}</span><br>
+                Fecha de Alta {{oportunidad.fecha_de_alta}}<br>
+                Fecha de Inicio: {{oportunidad.fecha_de_inicio}}<br>
+                <span *ngIf="isOpCerrada()">Fecha de Cierre: {{oportunidad.fecha_de_cierre}}</span><br>
+            </div>
+        </div>
+        <mat-tab-group>
+            <mat-tab label="Información">
+                <div class="belowTabs">
+                    <form [formGroup]="oppForm">
+                    <div class="container">
+                        <mat-chip-listbox aria-label="Estado de Oportunidad">
+                            <ng-container *ngFor="let estado of estados; let last = last"><mat-chip-option [selected]="isEstadoActual(estado.nombre)">{{estado.nombre}}</mat-chip-option><span class="arrow" *ngIf="!last">-></span></ng-container>
+                        </mat-chip-listbox> 
+                    </div>  
+                    
+                    
+                    <div class="container customLineHeight">
+                        <div>
+                        Monto de la Opp: (PONER MONTO ACA)<br>
+                        %Margen: (PONER MARGEN ACA)<br>
+                        <mat-slide-toggle *ngIf="!oportunidad.propuesta_presentada" formControlName="propuesta_presentada">Propuesta presentada</mat-slide-toggle>
+                        <mat-slide-toggle *ngIf="oportunidad.propuesta_presentada">FORECAST</mat-slide-toggle>
+
+                        </div>
+                        <div>
+                               
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </mat-tab>
+            <mat-tab label="7P + C">
+                
+            </mat-tab>
+            <mat-tab label="Hoja de Costos">
+                Aca va la HC
+            </mat-tab>
+        </mat-tab-group>
+        
             
-        </form>
+            
+        
         <button (click)="closeOportunidad()">Cerrar Oportunidad</button>
     </div>
-</div>

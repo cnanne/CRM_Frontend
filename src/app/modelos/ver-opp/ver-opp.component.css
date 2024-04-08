@@ -3,8 +3,47 @@
     height: 80vh; /* Set height of the box */
 }
 
+.topbar{
+    background-color: rgb(79, 77, 77);
+    display:flex;
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+}
+
+.topbar > div{
+    flex:1;
+    
+}
+
+
+
+.container{
+    display:flex;
+    margin:20px;
+}
+.container > div{
+    flex:1
+}
+
+.oppTitle{
+    width: 90%;
+}
+
+.oppState{
+    width:10%;
+}
+
 .Ganada{
     color: green;
+}
+
+.estado{
+    text-decoration: solid;
 }
 
 .Perdida{
@@ -13,9 +52,41 @@
 }
 
 .Abierta{
-    color: black
+    color: white;
 }
 
 .Lead{
     color: grey;
 }
+
+.customLineHeight{
+    line-height: 2.5;
+}
+
+/* Adjust the size of the checkbox */
+.larger-checkbox .mat-checkbox-layout {
+    width: 50px; /* Width of the checkbox */
+    height: 50px; /* Height of the checkbox */
+}
+
+/* Adjust the size of the checkmark */
+.larger-checkbox .mat-checkbox-inner-container {
+    width: 42px; /* Width of the checkmark */
+    height: 42px; /* Height of the checkmark */
+}
+
+/* Adjust the size of the checkbox label */
+.larger-checkbox .mat-checkbox-label {
+    font-size: 24px; /* Font size of the label */
+    margin-left: 8px; /* Adjust spacing between checkbox and label */
+}
+
+.belowTabs{
+    margin-top: 15px;
+}
+
+.arrow {
+    display: inline-block;
+    vertical-align: middle; /* Aligns the -> vertically with the chip */
+    margin: 0 5px; /* Adjust margin as needed */
+  }

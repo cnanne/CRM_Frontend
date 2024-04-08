@@ -19,7 +19,9 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatChipsModule} from '@angular/material/chips';
 import { EstadoOportunidad } from '../estadoOpp';
-
+import { EstadosService } from '../../API/main-crm-api/estados.service';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatTabsModule} from '@angular/material/tabs';
 @Component({
   selector: 'app-ver-opp',
   standalone: true,
@@ -32,11 +34,12 @@ import { EstadoOportunidad } from '../estadoOpp';
     MatDatepickerModule,
     MatSelectModule,
     MatSlideToggleModule,
-    MatButtonToggleModule,
+    MatCheckboxModule,
     MatProgressBarModule,
     MatSliderModule,
     MatRadioModule,
-    MatChipsModule,    
+    MatChipsModule,
+    MatTabsModule,    
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './ver-opp.component.html',
@@ -52,8 +55,13 @@ export class VerOppComponent implements OnChanges, OnInit{
   actividades: ActividadesListItem[] = []
   actividadesFetched :boolean = false
   estados: EstadoOportunidad[] = []
+  estadosFetched: boolean = false
 
-  constructor(private cdr: ChangeDetectorRef, private oportunidades: OportunidadesService, private formBuilder: FormBuilder,  private actividadesService: ActividadesService){
+  constructor(private cdr: ChangeDetectorRef, 
+    private oportunidades: OportunidadesService, 
+    private formBuilder: FormBuilder,  
+    private actividadesService: ActividadesService,
+    private estadosService: EstadosService){
     this.oppForm = this.formBuilder.group({
       //Need to add al the fields here so we get something very nice from Oportunidad in the form.
       forecast: [],
@@ -91,7 +99,7 @@ export class VerOppComponent implements OnChanges, OnInit{
     else return "abierta"
   }
 
-  
+
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['oppId'] && changes['oppId'].currentValue){
@@ -104,8 +112,48 @@ export class VerOppComponent implements OnChanges, OnInit{
   ngOnInit(): void {
       if(this.oppId != ""){
         this.getOportunidadInfo()
+        this.getActividades()
+        this.getEstados()
       }
+
   }
+
+  getEstados(){
+    this.estadosService.getEstados().subscribe({
+      next:(result)=>{
+        this.estados = result
+        this.estadosFetched = true
+        this.cdr.detectChanges()
+      }
+    })
+  }
+
+
+
+  isEstadoDisabled(estado: EstadoOportunidad) :boolean{  
+    if (this.oportunidad.estado_de_la_oportunidad != undefined){  
+      if (this.oportunidad.estado_de_la_oportunidad?.valor < estado.valor){
+        if (estado.valor < 0){
+          return false
+        }
+        else{
+          return true
+        }
+      }else{
+        return false
+      }
+    }else{
+      return true
+    }
+  }
+
+  isEstadoActual(estado: string) : boolean{
+    if(this.oportunidad.estado_de_la_oportunidad != undefined)
+      return this.oportunidad.estado_de_la_oportunidad.nombre == estado
+     
+    return false
+  }
+  
 
   getEstadoMacro2() : string | undefined{
     let estado2 :string|undefined= this.oportunidad.estado_de_la_oportunidad?.macro_estado_2?.nombre
