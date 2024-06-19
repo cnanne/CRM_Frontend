@@ -1,14 +1,19 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { SharedFrameDynamicComponent } from '../../shared-frame/shared-frame.component';
-import { ActividadesService } from '../../API/main-crm-api/actividades.service'
+import { ActividadesService } from '../../API/main-crm-api/actividades.service';
 import { ActividadesListItem } from '../../modelos/actividades';
 import { forkJoin } from 'rxjs';
 import { Actividad } from '../../modelos/actividades';
+import { MatDialog } from '@angular/material/dialog';
+import { CrearOppComponent } from '../../modelos/crear-opp/crear-opp.component';
+import { CompletarActividadComponent } from '../../modelos/completar-actividad/completar-actividad.component';
+import { MoverActividadComponent } from '../../modelos/mover-actividad/mover-actividad.component';
+import { VerOppComponent } from '../../modelos/ver-opp/ver-opp.component';
 
 @Component({
   selector: 'app-comercial-dashboard',
   templateUrl: './comercial-dashboard.component.html',
-  styleUrl: './comercial-dashboard.component.css',
+  styleUrls: ['./comercial-dashboard.component.css'],
   providers: [ActividadesService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -20,16 +25,16 @@ export class ComercialDashboardComponent implements SharedFrameDynamicComponent 
   moverActividadRendering = false;
   verOppDetails = false;
   actividadId = '';
-  actividad : Actividad = {}
+  actividad: Actividad = {};
   oppId = '';
 
-  constructor (private cdr: ChangeDetectorRef, private actividadesService: ActividadesService){}
+  constructor(private cdr: ChangeDetectorRef, private actividadesService: ActividadesService, private dialog: MatDialog) {}
 
   ngOnInit() {
-    this.getActividades()
+    this.getActividades();
   }
 
-  getActividades() : void{
+  getActividades(): void {
     forkJoin({
       actividadesVencidas: this.actividadesService.getActividadesVencidas(),
       actividadesHoy: this.actividadesService.getActividadesHoy()
@@ -37,7 +42,7 @@ export class ComercialDashboardComponent implements SharedFrameDynamicComponent 
       next: (result) => {
         this.actividadesVencidas = result.actividadesVencidas as ActividadesListItem[];
         this.actividadesHoy = result.actividadesHoy as ActividadesListItem[];
-        this.cdr.detectChanges(); 
+        this.cdr.detectChanges();
       },
       error: (error) => {
         // Handle error
@@ -46,44 +51,46 @@ export class ComercialDashboardComponent implements SharedFrameDynamicComponent 
   }
 
   completarActividad(actividad: ActividadesListItem) {
-    this.closeAll();
-    this.actividadId = actividad.id.toString()
-    this.completarActividadRendering = true;
-    
+    const dialogRef = this.dialog.open(CompletarActividadComponent, {
+      width: '600px', // Adjust width as needed
+      data: { actividadId: actividad.id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getActividades();
+    });
   }
 
   moverActividad(actividad: ActividadesListItem) {
-    this.closeAll();
-    this.actividadId = actividad.id.toString();
-    this.moverActividadRendering = true;
+    const dialogRef = this.dialog.open(MoverActividadComponent, {
+      width: '600px', // Adjust width as needed
+      data: { actividadId: actividad.id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getActividades();
+    });
   }
 
   verOpp(actividad: ActividadesListItem) {
-    this.closeAll();
-    this.oppId = actividad.oportunidad.id.toString();
-      this.verOppDetails = true;
+    const dialogRef = this.dialog.open(VerOppComponent, {
+      width: '600px', // Adjust width as needed
+      data: { oppId: actividad.oportunidad.id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getActividades();
+    });
   }
 
-  cerrarCompletarActividad(event: boolean) {
-    this.getActividades()
-    this.completarActividadRendering = false;
+  crearOpp() {
+    const dialogRef = this.dialog.open(CrearOppComponent, {
+      width: '600px', // Adjust width as needed
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // Handle any actions after the dialog is closed if needed
+    });
   }
-
-  cerrarMoverActividad(event: boolean) {
-    this.getActividades()
-    this.moverActividadRendering = false;
-  }
-
-  cerrarVerOpp(event: boolean) {
-    this.getActividades()
-    this.verOppDetails = false;
-  }
-
-  closeAll() {
-    this.cerrarCompletarActividad(true);
-    this.cerrarMoverActividad(true);
-    this.cerrarVerOpp(true);
-  }
-
-
 }

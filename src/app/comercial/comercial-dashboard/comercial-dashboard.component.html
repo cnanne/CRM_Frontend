@@ -1,10 +1,11 @@
+<!-- comercial-dashboard.component.html -->
 <h1>Dashboard</h1>
 <div>
-    <button mat-raised-button color="primary">Crear Actividad</button>
+    <button mat-raised-button color="primary" (click)="crearOpp()">Crear Oportunidad</button>
     <br>
     <br>
 </div>
-<div *ngIf="actividadesVencidas.length>0">
+<div *ngIf="actividadesVencidas.length > 0">
     ------------------------------------------------------------------------
     <h2>Actividades Vencidas</h2>
     <div *ngFor="let actividad of actividadesVencidas">
@@ -26,15 +27,3 @@
         <button mat-raised-button color="primary" (click)="verOpp(actividad)">Ver Oportunidad</button><br><br>
     </div>
 </div>
-<div *ngIf="completarActividadRendering">
-    <app-completar-actividad (closeCompletarEvent)="cerrarCompletarActividad($event)" [actividadId]="actividadId"></app-completar-actividad>
-</div>
-<div *ngIf="moverActividadRendering">
-    <app-mover-actividad (closeMoverEvent)="cerrarMoverActividad($event)" [actividadId]="actividadId"></app-mover-actividad>
-</div>
-
-<div *ngIf="verOppDetails">
-    <app-ver-opp (closeOppEvent)="cerrarVerOpp($event)" [oppId]="oppId"></app-ver-opp>
-</div>
-
-
