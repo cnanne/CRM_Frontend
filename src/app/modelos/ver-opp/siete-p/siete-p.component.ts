@@ -28,7 +28,7 @@ export class SietePComponent {
     @Input() sieteP : SieteP = {} 
   @Input() 
   @Output() exitTab = new EventEmitter<SieteP>
-  @ViewChild(MatTabGroup) tabGroup: MatTabGroup
+  @ViewChild(MatTabGroup) tabGroup?: MatTabGroup
   
 
   
@@ -82,11 +82,9 @@ export class SietePComponent {
       };
     }
 
-    isComponentVisible(): boolean {
-      const currentIndex = this.tabGroup.selectedIndex;
-      const componentIndex = this.tabGroup._allTabs.toArray().findIndex(tab => tab.content === this);
-      return currentIndex === componentIndex;
-    }
+  
+
+
     
     
     
@@ -96,4 +94,4 @@ export class SietePComponent {
 
   }
 
-}
+

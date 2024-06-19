@@ -1,4 +1,5 @@
-import { EmpresaNombre } from "./empresas"
+import { Contacto } from "./common-data"
+import { Empresa } from "./empresas"
 
 export interface SieteP {
 
@@ -6,7 +7,7 @@ export interface SieteP {
     proyecto? :string
     presupuesto? :string
     prioridad? :string
-    personas? : string
+    personas? : Contacto[]
     procesoDecisorio? :string
     plazo? :string
-    competencia?: string}
+    competencia?: Empresa[]}
